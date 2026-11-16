@@ -9,7 +9,7 @@ export function ProjectCard({ project }: { project: Project }) {
   return <article className="project-card card group overflow-hidden">
     <Link href={`/projects/${project.slug}`} className="project-image-wrap relative block aspect-[16/10] overflow-hidden" aria-label={`View ${project.title}`}>
       <Image src={project.image} alt={project.imageAlt} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="project-image object-cover transition-transform duration-700 group-hover:scale-110"/>
-      <div className="absolute inset-0 bg-gradient-to-t from-[#071326]/80 via-transparent to-transparent"/>
+      <div className="absolute inset-0 bg-gradient-to-t from-[#042426]/85 via-transparent to-transparent"/>
       <span className="absolute bottom-4 left-4 rounded-full border border-white/20 bg-black/35 px-3 py-1 text-[11px] font-bold tracking-wide text-white backdrop-blur">{project.category}</span>
       <span className="image-arrow absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full bg-white/90 text-slate-900"><ArrowUpRight size={18}/></span>
     </Link>
