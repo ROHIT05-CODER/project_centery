@@ -1,11 +1,43 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { projects } from "@/lib/projects";
 import { whatsappLink } from "@/lib/whatsapp";
-import { ArrowLeft, Cpu, MessageCircle } from "lucide-react";
+import { ArrowLeft, MessageCircle } from "lucide-react";
+
+const siteUrl = "https://projectcentery-vugd.vercel.app";
 
 export function generateStaticParams() { return projects.map(p => ({ slug: p.slug })); }
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const project = projects.find(p => p.slug === slug);
+  if (!project) return { title: "Project not found", robots: { index: false, follow: false } };
+
+  const canonical = `/projects/${project.slug}`;
+  const isReady = project.status === "Available";
+  const description = `${project.summary} Explore the technologies and enquire about this student engineering project.`;
+
+  return {
+    title: project.title,
+    description,
+    alternates: { canonical },
+    robots: {
+      index: isReady,
+      follow: true,
+      googleBot: { index: isReady, follow: true },
+    },
+    openGraph: {
+      type: "article",
+      url: `${siteUrl}${canonical}`,
+      title: project.title,
+      description,
+      images: [{ url: project.image, alt: project.imageAlt }],
+    },
+  };
+}
+
 export default async function ProjectDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const project = projects.find(p => p.slug === slug);
