@@ -1,8 +1,23 @@
+import type { Metadata } from "next";
 import { ProjectCard } from "@/components/project-card";
 import { projects, categories } from "@/lib/projects";
 import { ProjectSearch } from "@/components/project-search";
 
-export const metadata = { title: "All Engineering Projects" };
+export const metadata: Metadata = {
+  title: "Engineering Projects for Students",
+  description:
+    "Browse engineering project ideas for students in IoT, ESP32, embedded systems, robotics, electronics and AI. Filter the catalogue by project category and technology.",
+  alternates: {
+    canonical: "/projects",
+  },
+  openGraph: {
+    title: "Engineering Projects for Students",
+    description:
+      "Browse student project ideas across IoT, embedded systems, robotics, electronics and AI.",
+    url: "/projects",
+    type: "website",
+  },
+};
 
 export default async function ProjectsPage({ searchParams }: { searchParams: Promise<{ category?: string }> }) {
   const params = await searchParams;
